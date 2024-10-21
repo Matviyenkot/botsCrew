@@ -19,7 +19,7 @@ public class ConsoleController implements CommandLineRunner {
     @Autowired
     private LectorService lectorService;
 
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     @Override
     public void run(String... args) {
@@ -53,8 +53,8 @@ public class ConsoleController implements CommandLineRunner {
             System.out.println("Unknown command. Please try again.");
             return;
         }
-        String[] parts = input.split(" ", 3);
-        String commandId = parts[0].toLowerCase();
+        String[] parts = input.split(" ");
+        String commandId = parts[0];
         String inputText = parts[1];
 
         switch (commandId) {

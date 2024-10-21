@@ -1,7 +1,8 @@
-insert into Degrees(name)
-values ('assistant'),
-       ('associate professor'),
-       ('professor');
+INSERT INTO Degrees(name) VALUES
+('assistant'),
+('associate professor'),
+('professor');
+
 
 insert into Lector(name, degree_id, salary)
 values ('Cash', 1, 1234),
@@ -12,11 +13,11 @@ values ('Cash', 1, 1234),
        ('Amber', 3, 67777);
 
 insert into Department(name, head_lector_id)
-values ('Math', 2),
-       ('History', 1),
-       ('Architecture', 3),
-       ('Physic', 4),
-       ('Law', 5);
+values ('math', 2),
+       ('history', 1),
+       ('architecture', 3),
+       ('physic', 4),
+       ('law', 5);
 
 insert into Lector_in_Department(lector_id, department_id)
 values

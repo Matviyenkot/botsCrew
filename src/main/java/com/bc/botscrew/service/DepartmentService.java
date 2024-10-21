@@ -20,7 +20,7 @@ public class DepartmentService {
     private DepartmentRepo departmentRepository;
 
     public String getDepartmentHead(String departmentName) {
-        Department department = departmentRepository.findByName(departmentName);
+        Department department = departmentRepository.findByNameIgnoringCase(departmentName);
         if(department != null && department.getHead() != null){
             return department.getHead().getName();
         }else {
@@ -30,7 +30,7 @@ public class DepartmentService {
 
     public Map<String, Integer> getDepartmentStatistics(String departmentName) {
         Map<String, Integer> statistics = new HashMap<>();
-        Department department = departmentRepository.findByName(departmentName);
+        Department department = departmentRepository.findByNameIgnoringCase(departmentName);
 
         if (department != null) {
             List<Lector> lectors = new ArrayList<>(department.getLectors());
@@ -41,15 +41,9 @@ public class DepartmentService {
             for (Lector lector : lectors) {
 
                 switch (lector.getDegree().getName()) {
-                    case ASSISTANT:
-                        assistantsCount++;
-                        break;
-                    case ASSOCIATE_PROFESSOR:
-                        associateProfessorsCount++;
-                        break;
-                    case PROFESSOR:
-                        professorsCount++;
-                        break;
+                    case ASSISTANT -> assistantsCount++;
+                    case ASSOCIATE_PROFESSOR -> associateProfessorsCount++;
+                    case PROFESSOR -> professorsCount++;
                 }
             }
 
@@ -72,7 +66,7 @@ public class DepartmentService {
     }
 
     public int getEmployeeCount(String departmentName) {
-        Department department = departmentRepository.findByName(departmentName);
+        Department department = departmentRepository.findByNameIgnoringCase(departmentName);
         if(department != null){
             return department.getLectors().size();
         }else {

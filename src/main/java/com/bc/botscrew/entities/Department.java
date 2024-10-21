@@ -24,7 +24,7 @@ public class Department {
     private Set<Lector> lectors = new HashSet<>();
 
     @OneToOne
-    @JoinColumn(name = "head_lector_id", nullable = true)
+    @JoinColumn(name = "head_lector_id")
     private Lector head;
 
     public Department() {

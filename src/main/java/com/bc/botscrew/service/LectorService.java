@@ -13,6 +13,6 @@ public class LectorService{
     private LectorRepo lectorRepository;
 
     public List<Lector> globalSearch(String template) {
-        return lectorRepository.findByNameContaining(template);
+        return lectorRepository.findByNameContainingIgnoreCase(template);
     }
 }
