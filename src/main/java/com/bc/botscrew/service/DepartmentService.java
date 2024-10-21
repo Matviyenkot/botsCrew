@@ -1,8 +1,8 @@
 package com.bc.botscrew.service;
 
 import com.bc.botscrew.dao.DepartmentRepo;
+import com.bc.botscrew.dto.DepartmentStatisticsDTO;
 import com.bc.botscrew.entities.Department;
-import com.bc.botscrew.entities.Lector;
 import com.bc.botscrew.handlers.NoSuchDepartmentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,28 +28,14 @@ public class DepartmentService {
         }
     }
 
-    public Map<String, Integer> getDepartmentStatistics(String departmentName) {
-        Map<String, Integer> statistics = new HashMap<>();
-        Department department = departmentRepository.findByNameIgnoringCase(departmentName);
+    public Map<String, Long> getDepartmentStatistics(String departmentName) {
+        Map<String, Long> statistics = new HashMap<>();
 
-        if (department != null) {
-            List<Lector> lectors = new ArrayList<>(department.getLectors());
-            int assistantsCount = 0;
-            int associateProfessorsCount = 0;
-            int professorsCount = 0;
-
-            for (Lector lector : lectors) {
-
-                switch (lector.getDegree().getName()) {
-                    case ASSISTANT -> assistantsCount++;
-                    case ASSOCIATE_PROFESSOR -> associateProfessorsCount++;
-                    case PROFESSOR -> professorsCount++;
-                }
-            }
-
-            statistics.put(ASSISTANT, assistantsCount);
-            statistics.put(ASSOCIATE_PROFESSOR, associateProfessorsCount);
-            statistics.put(PROFESSOR, professorsCount);
+        if (departmentRepository.existsByName(departmentName)) {
+            DepartmentStatisticsDTO departmentStatistics = departmentRepository.findDepartmentStatistics(departmentName);
+            statistics.put(ASSISTANT, departmentStatistics.getAssistants());
+            statistics.put(ASSOCIATE_PROFESSOR, departmentStatistics.getAssociateProfessors());
+            statistics.put(PROFESSOR, departmentStatistics.getProfessors());
         }else {
             throw new NoSuchDepartmentException("Department was not found");
         }

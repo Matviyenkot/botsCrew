@@ -75,7 +75,7 @@ public class ConsoleController implements CommandLineRunner {
 
             case "2":
                 if (parts.length == 2) {
-                    Map<String, Integer> stats;
+                    Map<String, Long> stats;
                     try {
                         stats = departmentService.getDepartmentStatistics(inputText);
                     }catch (NoSuchDepartmentException e){
